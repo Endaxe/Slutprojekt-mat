@@ -28,7 +28,7 @@ router.post('/signup', async function (req, res) {
 
   bcrypt.hash(password, 10, async function (err, hash) {
     try {
-      const [user] = await pool.promise().query('INSERT INTO `salam_login` ( `username`, `password`) VALUES( ?, ?)', [username, hash])
+      const [user] = await pool.promise().query('INSERT INTO `endo_login` ( `username`, `password`) VALUES( ?, ?)', [username, hash])
       res.redirect('/login')
     } catch (error) {
       console.log(error)
@@ -115,7 +115,7 @@ router.get('/logout', function (req, res) {
 router.get('/test', async function (req, res) {
 
   const [result] = await pool.promise().query(
-    `SELECT * FROM salam_login `,
+    `SELECT * FROM endo_login `,
   )
 
   res.json(result)
@@ -124,7 +124,7 @@ router.get('/test', async function (req, res) {
 
 router.get('/meows', async function (req, res) {
   const [result] = await pool.promise().query(
-    `SELECT * FROM salam_meows JOIN salam_login ON salam_login.id = salam_meows.user_id`,
+    `SELECT * FROM endo_tweets JOIN endo_login ON endo_login.id = endo_tweets.user_id`,
   )
 
   res.render('meows.njk', {
@@ -152,7 +152,7 @@ router.post('/saymeow', async function (req, res) {
   const id = req.session.userid
 
   const [result] = await pool.promise().query(
-    `INSERT INTO salam_meows (content, user_id) VALUES (?, ?)`, [text, id]
+    `INSERT INTO endo_tweets (content, user_id) VALUES (?, ?)`, [text, id]
   )
 
 
@@ -161,7 +161,7 @@ router.post('/saymeow', async function (req, res) {
 
 router.get('/profile', async function (req, res) {
   const [result] = await pool.promise().query(
-    `SELECT * FROM salam_login WHERE id = 1`, )
+    `SELECT * FROM endo_login WHERE id = 1`, )
 
  res.json (result)
 
