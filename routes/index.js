@@ -6,6 +6,7 @@ const saltRounds = 10;
 
 const pool = require('../db.js')
 
+
 router.get('/', function (req, res) {
   res.render('index.njk', {
     title: 'Hej user',
@@ -35,7 +36,6 @@ router.post('/signup', async function (req, res) {
       res.status(402)
     }
   })
-
 
 
 })
@@ -130,10 +130,7 @@ router.get('/meows', async function (req, res) {
   res.render('meows.njk', {
     meows: result,
       username: req.session.username,
-  
   })
-
-
 })
 
 router.get('/saymeow', async function (req, res) {
@@ -150,12 +147,9 @@ router.get('/saymeow', async function (req, res) {
 router.post('/saymeow', async function (req, res) {
   const text = req.body.textarea
   const id = req.session.userid
-
   const [result] = await pool.promise().query(
     `INSERT INTO endo_tweets (content, user_id) VALUES (?, ?)`, [text, id]
   )
-
-
   res.redirect('/meows')
 })
 
