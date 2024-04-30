@@ -7,11 +7,13 @@ const saltRounds = 10;
 const pool = require('../db.js')
 
 
-router.get('/', function (req, res) {
+router.get('/', async function (req, res) {
+  const[products] = await pool.promise().query('SELECT * FROM endo_produkt')
   res.render('index.njk', {
     title: 'Hej user',
     message: 'Välkommen',
-    username: req.session.username
+    username: req.session.username,
+    products: products
   })
 })
 
@@ -161,5 +163,8 @@ router.get('/profile', async function (req, res) {
 
 
 })
+
+
+
 
 module.exports = router

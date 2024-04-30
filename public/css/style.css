@@ -6,6 +6,12 @@
     padding-right: 1rem;
   }
 
+  body, html {
+    height: 100vh; 
+    padding: 0;
+    margin: 0;
+  }
+
   .wrapper{
     width: 100%;
     max-width: 40.63rem;
@@ -110,7 +116,9 @@
     background-color: #ffffff;
     position: top; 
     top: 0; 
-    width: 100%; 
+    width: 100%;  
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.352);
+
   }
 
 

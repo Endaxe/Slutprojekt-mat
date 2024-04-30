@@ -7,38 +7,18 @@
       <h1> Välkommen {{ username }}!</h1>
       <h2>Produkter:</h2>
 
+      {% for product in products %}
       <div class="product-list-container">
         <div class="product-card">
-          <img src="/img/milk.jpg" style="width:200px;height:200px;" alt="Mjölk">
-          <h3 class="product-title">Mjölk</h3>
-          <p class="product-description">Fin slät mjölk.</p>
-          <p class="product-price">20 kr/st </p>
-            <button class="btn" id="count-button">Köp</button>
-          </div>
+          <img src="/img/{{ product.image }}" width="200px" height="200px" alt="Produktbild på {{ product.name }}">
+          <h3>{{product.name}}</h3>
+          <p>{{product.price}} kr/st</p>
+          <button class="addtocardbutton" data-product="{{ product.id }}">Lägg till i kundvagnen</button>
         </div>
-        <div class="product-card">
-          <img src="/img/beef.png" style="width:200px;height:200px;" alt="Kött">
-          <h3 class="product-title">Kött</h3>
-          <p class="product-description">Fin slät Köttbit.</p>
-          <p class="product-price">200  kr/kg </p>
-            <button class="btn" id="count-button">Köp</button>
-        </div>  
-        <div class="product-card">
-          <img src="/img/ost.jpg" style="width:200px;height:200px;" alt="Ost">
-          <h3 class="product-title">Ost</h3>
-          <p class="product-description">Fin slät ost.</p>
-          <p class="product-price">50 kr/st </p>
-            <button class="btn" id="count-button">Köp</button>
-      
+      </div>  
+      {% endfor %}
 
-        <h2>Antal produkter: 0</h2>
-        <div class="button-container">
-          <button class="btn" id="count-button">Köp</button>
-          <button class="btn" id="save-button">Save clicks</button>
-          <button class="btn" id="reset-button">Reset clicks</button>
-        </div>
-      </div>
-    </div>
+    
 
 </main>
 {% endblock %}

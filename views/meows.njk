@@ -3,19 +3,24 @@
 {% block content %}
 <main class="wrapper">
     <div class="card">
-        <h1>Inkorg</h1>
+        <h1>Varukorg</h1>
 
         <main class="wrapper">
             <h1>{{ title }}</h1>
             <p>Jag kan nu byta namn på min route till /cats för att visa en lista på alla katter.</p>
             <p>Nästa steg blir sedan att göra sidor för varje enskild katt.</p>
-            <p>Jag vill <a href="/cats/new">registrera min katt.</a></p>
-            <p>Jag vill <a href="/newbreed">lägga till en ny kattras.</a></p>
-            <ul class="catlist">
-              <li><strong>Namn</strong><strong>Ras</strong><strong></strong></li>
-              {% for cat in cats %}
-                <li><a href="/cats/{{cat.id}}">{{ cat.name }}</a>{{ cat.breed }}<a href="/cats/{{ cat.id }}/delete">Ta bort katt</a></li>
-              {% endfor %}
+            
+              <ul class="reviewlist">
+                {% for dish in dishes %}
+                <li><a href="/dishes/{{dish.id}}">{{ dish.name }}</a><a href="/dishes/{{ dish.id }}/delete">Remove review</a>
+                </li>
+                {% endfor %}
+
+                <h2>{{part.name}}</h2>
+    {% if part.image %}
+    <img src="/img/{{produkt.image}}" alt="{{part.name}}">
+    {% endif %}
+
             </ul>
           </main>
 
