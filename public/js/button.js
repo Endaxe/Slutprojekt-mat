@@ -1,30 +1,31 @@
 window.addEventListener('load', (event) => {
-    const countButton = document.querySelector('#count-button');
-    const saveButton = document.querySelector('#save-button');
-    const resetButton = document.querySelector('#reset-button');
+    const addToCartButtons = document.querySelectorAll('.addtocardbutton');
+   
 
-    let count = localStorage.getItem('count') || 0;
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    console.log(cart)       
 
-    const showCount = (countValue) => {
-        const counterElement = document.querySelector('.playground > h2');
-        counterElement.textContent = `Click count: ${countValue}`;
-    };
+    const varukorg = [
+        { name: id, quantity: 2 },
+        { name: "bananas", quantity: 0 },
+        { name: "cherries", quantity: 5 },
+      ];
+      
+      const result = varukorg.find(({ name }) => name === "cherries");
+      
+      return
+      console.log(result); // { name: 'cherries', quantity: 5 }
+      
 
-    showCount(count);
 
-    countButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        count++;
-        showCount(count);
-    });
-    saveButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        localStorage.setItem('count', count);
-    });
-    resetButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        localStorage.removeItem('count');
-        count = 0;
-        showCount(count);
-    });
+
+    addToCartButtons.forEach(addToCartButton => {
+        addToCartButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            console.log(addToCartButton) // häm,ta data värdet för produkten    
+            cart.push({id: addToCartButton.dataset.product, count: 1}) // lägg till produkt
+            localStorage.setItem('cart', JSON.stringify(cart)) // spara i localstorage
+        });
+    })
+
 });

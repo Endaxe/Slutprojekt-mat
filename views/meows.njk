@@ -5,34 +5,64 @@
     <div class="card">
         <h1>Varukorg</h1>
 
-        <main class="wrapper">
-            <h1>{{ title }}</h1>
-            <p>Jag kan nu byta namn på min route till /cats för att visa en lista på alla katter.</p>
-            <p>Nästa steg blir sedan att göra sidor för varje enskild katt.</p>
+        {% for product in products %}
+        <div class="product-list-container">
+          <div class="product-card">
+            <img src="/img/{{ product.image }}" width="200px" height="200px" alt="Produktbild på {{ product.name }}">
+            <h3>{{product.name}}</h3>
+            <p>{{product.price}} kr/st</p>
+
+          </div>
+        </div>  
+        {% endfor %}
+
+        <main class="container">
+
+  
+  
+            <h1>Varukorg</h1>
+            <div id="cart"></div>
+            <button type="button" id="buystuff">Köp grejjor</button>
             
-              <ul class="reviewlist">
-                {% for dish in dishes %}
-                <li><a href="/dishes/{{dish.id}}">{{ dish.name }}</a><a href="/dishes/{{ dish.id }}/delete">Remove review</a>
-                </li>
-                {% endfor %}
-
-                <h2>{{part.name}}</h2>
-    {% if part.image %}
-    <img src="/img/{{produkt.image}}" alt="{{part.name}}">
-    {% endif %}
-
-            </ul>
+          
+          
+            </div>
           </main>
 
-        {% for meow in meows %}
-        <ul>
-            <li>
-                <h2> {{ meow.username }} </h2>
-                <p> {{ meow.content }} </p>
-            </li>
-        </ul>
+        <script>
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const items = cart.map(item => {
+              return {
+                name: item.name,
+                quantity: item.quantity
+              }
+            });
+            console.log(items) 
+          
+            items.forEach(item => {
+              let meow = document.createElement('p')
+              meow.textContent = item.name + " " + item.quantity + "st"
+              document.body.appendChild(meow)
+              
+            });
+            const bjutton = document.querySelector('#buystuff');
+            bjutton.addEventListener('click', (event) => {
+              event.preventDefault()
+              
+              fetch('/order', {
+                method: 'post',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(cart),
+              })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch((error) => {
+                  console.error('Error:', error);
+                });
+            });
+          </script>
 
-        {% endfor %}
-    </div>
 </main>
 {% endblock %}

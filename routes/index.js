@@ -128,10 +128,13 @@ router.get('/meows', async function (req, res) {
   const [result] = await pool.promise().query(
     `SELECT * FROM endo_tweets JOIN endo_login ON endo_login.id = endo_tweets.user_id`,
   )
+  const[products] = await pool.promise().query('SELECT * FROM endo_produkt')
+
 
   res.render('meows.njk', {
     meows: result,
       username: req.session.username,
+      products: products
   })
 })
 
