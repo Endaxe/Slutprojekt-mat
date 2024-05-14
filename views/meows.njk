@@ -16,53 +16,7 @@
         </div>  
         {% endfor %}
 
-        <main class="container">
-
-  
-  
-            <h1>Varukorg</h1>
-            <div id="cart"></div>
-            <button type="button" id="buystuff">Köp grejjor</button>
-            
-          
-          
-            </div>
-          </main>
-
-        <script>
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const items = cart.map(item => {
-              return {
-                name: item.name,
-                quantity: item.quantity
-              }
-            });
-            console.log(items) 
-          
-            items.forEach(item => {
-              let meow = document.createElement('p')
-              meow.textContent = item.name + " " + item.quantity + "st"
-              document.body.appendChild(meow)
-              
-            });
-            const bjutton = document.querySelector('#buystuff');
-            bjutton.addEventListener('click', (event) => {
-              event.preventDefault()
-              
-              fetch('/order', {
-                method: 'post',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(cart),
-              })
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch((error) => {
-                  console.error('Error:', error);
-                });
-            });
-          </script>
+    </div>
 
 </main>
 {% endblock %}
