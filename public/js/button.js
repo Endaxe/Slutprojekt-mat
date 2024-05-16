@@ -14,9 +14,9 @@ window.addEventListener('load', (event) => {
         addToCartButton.addEventListener('click', (event) => {
             event.preventDefault();
             console.log(addToCartButton) // häm,ta data värdet för produkten   
+            cart.push({ id: addToCartButton.dataset.product, count: 1 })
             const product = cart.find(product => product.id === addToCartButton.dataset.product)
             console.log(product) // vad händer om produkten inte är i localstorage ännu
-            
             
             
             if (product) {

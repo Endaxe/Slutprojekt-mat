@@ -13,7 +13,7 @@ router.get('/', async function (req, res) {
     title: 'Hej user',
     message: 'Välkommen',
     username: req.session.username,
-    products: products
+    products: products,
   })
 })
 
@@ -49,6 +49,7 @@ router.post('/login', async function (req, res) {
   const [user] = await pool.promise().query(
     'SELECT id, password FROM salam_login WHERE username = ?', [username]
   )
+  
 
 
   req.session.userid = user[0].id
@@ -129,7 +130,6 @@ router.get('/meows', async function (req, res) {
     `SELECT * FROM endo_tweets JOIN endo_login ON endo_login.id = endo_tweets.user_id`,
   )
   const[products] = await pool.promise().query('SELECT * FROM endo_produkt')
-
 
   res.render('meows.njk', {
     meows: result,

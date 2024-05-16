@@ -1,22 +1,32 @@
 {% extends "layout.njk" %}
+[% extends "button.js" %]
+[% extends "index.njk" %]
+
 
 {% block content %}
 <main class="wrapper">
     <div class="card">
         <h1>Varukorg</h1>
+        
+        <ul class="reviewlist">
+          {% for product in products %}
+          <li>  {{product.id}}</a><a href="/products/{{ product.id }}/delete">Ta bort vara </a>
+            <div class="product-list-container">
+              <div class="product-card">
+                <img src="/img/{{ product.image}}" width="100px" height="100px" alt="Produktbild på {{ product.name }}">
+                <h3>{{product.name}}</h3>
+                <p>{{product.price}} kr/st</p>
+              </div>
+            </div>  
+          </a>
+            <button class="shop" data-product=" {{ product.id }}">Köp</button>
 
-        {% for product in products %}
-        <div class="product-list-container">
-          <div class="product-card">
-            <img src="/img/{{ product.image }}" width="200px" height="200px" alt="Produktbild på {{ product.name }}">
-            <h3>{{product.name}}</h3>
-            <p>{{product.price}} kr/st</p>
+          </li>
+          {% endfor %}
+    
+        </ul>
 
-          </div>
-        </div>  
-        {% endfor %}
 
-    </div>
 
 </main>
 {% endblock %}

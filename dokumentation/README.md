@@ -1,40 +1,23 @@
 
 
- ## Gruppnamn :  وَعَلَيْكُمُ السَّلَامْ
-## Gruppmedlemmar
-Milton
-Endo/Noah 
-Nova
-Gabriel
-
-v.11 
-börjat och format grupp
-
-test commit
-ee
-
-
-
-## Planering
-tabell för login i tableplus
-| bigint unsigned | varchar(255) | varchar(255) |
-|-----------------|--------------|--------------|
-| id              | username     | password     |
-
-### Routes
- 2.1 - Login (get) - Sida där man kan logga in till sitt konto
-
- 2.2 - Signup (get post) - En sida som man kan skapa en användare i databasen på
-
- 2.3 - Index landing page (get) - "hem" sidan som du kan navigera till alla andra sidor till.
-
- 2.3.1 Mina sidor (extra get) - En sida som visar username och information om användaren.
-
-
 
  ### Dokumentaion
- 2 klar bre
- 3 Nyanserat och strukturerat css på login och index, fixade nav, filstruktur.
- 4 Det som har utförts idag är logout, signup och så att nav anpassar sig beroende på om du är inloggad eller inte. Hemliga sidan syns bara om man är inloggad, och ifall man inte är inloggad så blir man redirected till logn sidan.
- MEEPS - gjorde meows som är som en twi
 
+
+
+ Gjorde bilder med länk i nav
+
+ 2 tabeller i tableplus.
+ En för inloggning och andra för produkter (namn, id, pris, bild)
+
+
+Gjorde så att button räknar så länge produkten finns i korgen.
+använde en find produkt som sedan letade efter id
+löstes genom att gör en if sats  där den kollade om produkt fanns
+fanns den så ökar den ++
+om inte lägg till den med 1
+visade undifnied - löste genom att lägga till en nya rad och flytta upp den
+
+
+Påbörja varukorgen genom att göra en lista
+produkt ska kunnas ta bort och köper man så läggs den i databasen.
