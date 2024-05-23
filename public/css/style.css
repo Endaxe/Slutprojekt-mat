@@ -5,12 +5,7 @@
     padding-left: 1rem;
     padding-right: 1rem;
   }
-.shop {
-display: flex;  
-}
-.reviewlist {
-  display: flex ;
-}
+
 
   body, html {
     height: 100vh; 
