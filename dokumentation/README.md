@@ -1,6 +1,4 @@
 
-
-
  ### Dokumentaion
 
 Startade med att forka ALC-login projektet på github
@@ -38,9 +36,20 @@ produkt ska kunnas ta bort och köper man så läggs den i databasen.
 
 ## 
 I varukorgen ska 'cart' nås
-Detta gjordes genom att skapa en ul med klassen product-list
+Gjorde detta genom att skapa en ul med klassen product-list
 utifrån det skapades en js skript som selectade allt i product-list
 En let cart las även till för att hämta items från localstoragen ('cart') 
 i if (cart) loopen så skapas en ny element som skapar en li
 av det görs en appendChild av li
-Problem nu är att det som finns i carten är undefined!
+Nu skapas en ny product i listan när man lägger till i varukorgen
+Problem nu är att det som finns i carten är undefined
+
+##
+validering:
+* På framsidan var det endast img taggarna. width och height skulle inte inehålla px, det togs bort
+* Login page och signup hade en stray string och en tom attribute. Stringen togs bort och attribute saknade "password"
+* elementen title var tom, en div tagg som inte var stängd, lu tag fick inte användas och main taggen är öppen . stängningstagg för div lades till, elementen title gjordes om bort helt. End main taggen flyttades upp ovenaför skripten så att den fungera. lu tagg ersattes till li.
+
+Wave fix - Enda error var att framsidan inte hade en title, så det det lades till
+Samma sak med varukorgen, lades till en title i index.js
+fixade så att, när session är false i login page så kommer man tillbaka till login sidan istället för att krascha

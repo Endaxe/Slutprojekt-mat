@@ -9,18 +9,23 @@
     <h1>Varukorg</h1>
 
 
-    <ul class="product-list">
-      <button> Submit </button>
-    </ul>
-
-    <script>
+    <li class="product-list">
+      
+      <button>submit</button>      
+  
+    </li>
+    </div>
+  </main>
+    
+    <script>    
+    
       const productListElement = document.querySelector('.product-list');
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];  
       //console.log(cart[i])
       //id = cart[i].id
       //console.log(id)
       if ('cart') {
-        for (let product in cart) {
+        for (product of cart) {
           console.log(product)
 
           const li = document.createElement('li');
@@ -39,10 +44,9 @@
         // välj elementet product list
         // iterera över cart och lägg till dem i product-list
         // skapa en submit cart knapp
-      }     
+      }   
     </script>
 
 
 
-</main>
 {% endblock %}

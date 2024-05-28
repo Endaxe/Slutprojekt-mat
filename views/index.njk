@@ -10,7 +10,7 @@
       {% for product in products %}
       <div class="product-list-container">
         <div class="product-card">
-          <img src="/img/{{ product.image }}" width="200px" height="200px" alt="Produktbild på {{ product.name }}">
+          <img src="/img/{{ product.image }}" width="200" height="200" alt="Produktbild på {{ product.name }}">
           <h3>{{product.name}}</h3>
           <p>{{product.price}} kr/st</p>
           <button class="addtocardbutton" data-product="{{ product.id }}">Lägg till i kundvagnen</button>

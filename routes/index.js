@@ -4,13 +4,14 @@ const { body, matchedData, validationResult } = require('express-validator')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-const pool = require('../db.js')
+const pool = require('../db.js');
+const { error } = require('console');
 
 
 router.get('/', async function (req, res) {
-  const[products] = await pool.promise().query('SELECT * FROM endo_produkt')
+  const [products] = await pool.promise().query('SELECT * FROM endo_produkt')
   res.render('index.njk', {
-    title: 'Hej user',
+    title: 'shop',
     message: 'Välkommen',
     username: req.session.username,
     products: products,
@@ -42,42 +43,58 @@ router.post('/signup', async function (req, res) {
 
 })
 
-router.post('/login', async function (req, res) {
-
-  const username = req.body.username
-
-  const [user] = await pool.promise().query(
-    'SELECT id, password FROM salam_login WHERE username = ?', [username]
-  )
-  
+router.post('/login',
+  body('username').notEmpty().trim().escape(),
+  body('password').notEmpty().trim().escape(),
 
 
-  req.session.userid = user[0].id
-  const passwordenter = req.body.password
+  async function (req, res) {
+    //const username = req.body.username
+    const result = validationResult(req);
+    console.log(result)
+    if (result.isEmpty()) {
+      const data = matchedData(req);
+      console.log({data})
+      const [user] = await pool.promise().query(
+        'SELECT id, password FROM endo_login WHERE username = ?', [data.username]
+      )
+      console.log({user})
+      console.log(user.length)
 
-  bcrypt.compare(passwordenter, user[0].password, function (err, result) {
-    req.session.username = username
-    // req.session.login = false
-    if (result) {
-      req.session.login = true
-      res.redirect('/minasidor')
-      console.log(req.session.login)
+      if (user.length > 0) {
+        console.log(user[0].password)
+        bcrypt.compare(data.password, user[0].password, function (err, result) {
+          console.log(data.password, result)
+          // req.session.login = false
+          if (result) {
+            req.session.username = data.username
+            req.session.userid = user[0].id
+            req.session.login = true
+            return res.redirect('/minasidor')
+          } else {
+            // res.json({ message: 'Fel lösenord' })
+            return res.redirect('/login')
+
+          }
+        });
+      } else {
+        // det finns inte en user
+        res.json({ message: 'User does not exist' })
+        return res.redirect('/login')
+        // res.send({ error: result.array() });
+      }
+
     } else {
-      res.json({ message: 'Fel lösenord' })
+      res.json({message: "fel i formulär"})
     }
-  });
+    // const  password = req.body.password
 
+  })
 
-
-
-  // const  password = req.body.password
-
-  //SELECT * FROM salam_login WHERE id = 1
-})
 
 router.get('/login', function (req, res) {
   res.render('login.njk', {
-    title: 'Hej user',
+    title: 'login page',
     message: 'Välkommen',
     username: req.session.username
   })
@@ -85,7 +102,7 @@ router.get('/login', function (req, res) {
 
 router.get('/signup', function (req, res) {
   res.render('signup.njk', {
-    title: 'Hej user',
+    title: 'signup page',
     message: 'Välkommen',
     username: req.session.username
   })
@@ -129,12 +146,13 @@ router.get('/meows', async function (req, res) {
   const [result] = await pool.promise().query(
     `SELECT * FROM endo_tweets JOIN endo_login ON endo_login.id = endo_tweets.user_id`,
   )
-  const[products] = await pool.promise().query('SELECT * FROM endo_produkt')
+  const [products] = await pool.promise().query('SELECT * FROM endo_produkt')
 
   res.render('meows.njk', {
     meows: result,
-      username: req.session.username,
-      products: products
+    title: 'varukorg',
+    username: req.session.username,
+    products: products
   })
 })
 
@@ -160,9 +178,9 @@ router.post('/saymeow', async function (req, res) {
 
 router.get('/profile', async function (req, res) {
   const [result] = await pool.promise().query(
-    `SELECT * FROM endo_login WHERE id = 1`, )
+    `SELECT * FROM endo_login WHERE id = 1`,)
 
- res.json (result)
+  res.json(result)
 
 
 })
